@@ -70,5 +70,10 @@ namespace Projeto_IES_ASPNET_CORE_MVC.Controllers
             
             return RedirectToAction("Index");
         }
+
+        public ActionResult Details(long id)
+        {
+            return View(Instituicoes.Where(i => i.InstituicaoID == id).First());
+        }
     }
 }

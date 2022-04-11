@@ -75,5 +75,18 @@ namespace Projeto_IES_ASPNET_CORE_MVC.Controllers
         {
             return View(Instituicoes.Where(i => i.InstituicaoID == id).First());
         }
+
+        public ActionResult Delete(long id)
+        {
+            return View(Instituicoes.Where(i => i.InstituicaoID == id).First());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Instituicao instituicao)
+        {
+            Instituicoes.Remove(Instituicoes.Where(i => i.InstituicaoID == instituicao.InstituicaoID).First());
+            return RedirectToAction("Index");
+        }
     }
 }

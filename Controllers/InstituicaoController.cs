@@ -34,5 +34,19 @@ namespace Projeto_IES_ASPNET_CORE_MVC.Controllers
         {
             return View(Instituicoes);
         }
+        //GET:Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Instituicao instituicao)
+        {
+            Instituicoes.Add(instituicao);
+            instituicao.InstituicaoID = Instituicoes.Select(i => i.InstituicaoID).Max() + 1;
+            return RedirectToAction("Index");
+        }
     }
 }

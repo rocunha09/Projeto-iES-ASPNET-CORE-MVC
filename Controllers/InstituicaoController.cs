@@ -32,7 +32,7 @@ namespace Projeto_IES_ASPNET_CORE_MVC.Controllers
         };
         public IActionResult Index()
         {
-            return View(Instituicoes);
+            return View(Instituicoes.OrderBy(i => i.Nome));
         }
         //GET:Create
         public ActionResult Create()
@@ -46,6 +46,28 @@ namespace Projeto_IES_ASPNET_CORE_MVC.Controllers
         {
             Instituicoes.Add(instituicao);
             instituicao.InstituicaoID = Instituicoes.Select(i => i.InstituicaoID).Max() + 1;
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit(long id)
+        {
+            return View(Instituicoes.Where(i => i.InstituicaoID == id).First());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Instituicao instituicao)
+        {
+            //este método de realizar a alteração exclui a original e adiciona uma nova:
+            /*
+                Instituicoes.Remove(Instituicoes.Where(i => i.InstituicaoID == instituicao.InstituicaoID).First());
+                Instituicoes.Add(instituicao);
+            */
+
+            //este método de realizar a alteração atua sobre a lista como se fosse um array, recuperando a posição pelo indexOf()
+            Instituicoes[Instituicoes.IndexOf(Instituicoes.Where(
+                i => i.InstituicaoID == instituicao.InstituicaoID).First())] = instituicao;
+            
             return RedirectToAction("Index");
         }
     }

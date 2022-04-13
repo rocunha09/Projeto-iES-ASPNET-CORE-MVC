@@ -52,9 +52,12 @@ namespace Projeto_IES_ASPNET_CORE_MVC.Repository
             return inst;
         }
 
-        public Instituicao Delete(long id)
+        public Instituicao Delete(Instituicao instituicao)
         {
-            throw new NotImplementedException();
+
+            _context.Instituicoes.Remove(_context.Instituicoes.Where(i => i.InstituicaoID == instituicao.InstituicaoID).First());
+            _context.SaveChanges();
+            return instituicao;
         }
     }
 }

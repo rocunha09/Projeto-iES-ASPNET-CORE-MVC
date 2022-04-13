@@ -48,24 +48,23 @@ namespace Projeto_IES_ASPNET_CORE_MVC.Controllers
             
             return RedirectToAction("Index");
         }
-        /*
+        
         public ActionResult Details(long id)
         {
-            return View(Instituicoes.Where(i => i.InstituicaoID == id).First());
+            return View(_instituicaoRepository.Read(id));
         }
-
+        
         public ActionResult Delete(long id)
         {
-            return View(Instituicoes.Where(i => i.InstituicaoID == id).First());
+            return View(_instituicaoRepository.Read(id));
         }
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Instituicao instituicao)
         {
-            Instituicoes.Remove(Instituicoes.Where(i => i.InstituicaoID == instituicao.InstituicaoID).First());
+            _instituicaoRepository.Delete(instituicao);
             return RedirectToAction("Index");
         }
-    */
     }
 }

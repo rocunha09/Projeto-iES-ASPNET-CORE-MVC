@@ -31,24 +31,28 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.InstituicaoID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Endereco)
-            </td>
-            <td>
-                @Html.ActionLink("Alterar", "Edit", new { id = item.InstituicaoID }) |
-                @Html.ActionLink("Visualizar", "Details", new { id = item.InstituicaoID }) |
-                @Html.ActionLink("Apagar", "Delete", new { id = item.InstituicaoID })
-            </td>
-        </tr>
-}
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InstituicaoID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Endereco)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Alterar", "Edit", new { id = item.InstituicaoID }) |
+                        @Html.ActionLink("Visualizar", "Details", new { id = item.InstituicaoID }) |
+                        @Html.ActionLink("Apagar", "Delete", new { id = item.InstituicaoID })
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
 </body>

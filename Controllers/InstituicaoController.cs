@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Projeto_IES_ASPNET_CORE_MVC.Models;
+using Projeto_IES_ASPNET_CORE_MVC.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,29 +10,15 @@ namespace Projeto_IES_ASPNET_CORE_MVC.Controllers
 {
     public class InstituicaoController : Controller
     {
-        private static IList<Instituicao> Instituicoes = new List<Instituicao>()
+        private readonly IInstituicaoRepository _instituicaoRepository;
+
+        public InstituicaoController(IInstituicaoRepository instituicaoRepository)
         {
-            new Instituicao()
-            {
-                InstituicaoID = 1,
-                Nome = "Estacio",
-                Endereco = "Rio de Janeiro"
-            },
-            new Instituicao()
-            {
-                InstituicaoID = 2,
-                Nome = "Unisuam",
-                Endereco = "Rio de Janeiro"
-            },
-            new Instituicao()
-            {
-                InstituicaoID = 3,
-                Nome = "Anhembi Morumbi",
-                Endereco = "São Paulo"
-            }
-        };
+            _instituicaoRepository = instituicaoRepository;
+        }
         public IActionResult Index()
         {
+            List<Instituicao> Instituicoes = _instituicaoRepository.GetAll();
             return View(Instituicoes.OrderBy(i => i.Nome));
         }
         //GET:Create
@@ -42,13 +29,12 @@ namespace Projeto_IES_ASPNET_CORE_MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Instituicao instituicao)
+        public IActionResult Create(Instituicao instituicao)
         {
-            Instituicoes.Add(instituicao);
-            instituicao.InstituicaoID = Instituicoes.Select(i => i.InstituicaoID).Max() + 1;
+            _instituicaoRepository.Create(instituicao);
             return RedirectToAction("Index");
         }
-
+        /*
         public ActionResult Edit(long id)
         {
             return View(Instituicoes.Where(i => i.InstituicaoID == id).First());
@@ -65,7 +51,8 @@ namespace Projeto_IES_ASPNET_CORE_MVC.Controllers
             */
 
             //este método de realizar a alteração atua sobre a lista como se fosse um array, recuperando a posição pelo indexOf()
-            Instituicoes[Instituicoes.IndexOf(Instituicoes.Where(
+        /*    
+        Instituicoes[Instituicoes.IndexOf(Instituicoes.Where(
                 i => i.InstituicaoID == instituicao.InstituicaoID).First())] = instituicao;
             
             return RedirectToAction("Index");
@@ -88,5 +75,6 @@ namespace Projeto_IES_ASPNET_CORE_MVC.Controllers
             Instituicoes.Remove(Instituicoes.Where(i => i.InstituicaoID == instituicao.InstituicaoID).First());
             return RedirectToAction("Index");
         }
+    */
     }
 }

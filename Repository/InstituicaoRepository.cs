@@ -26,5 +26,35 @@ namespace Projeto_IES_ASPNET_CORE_MVC.Repository
         {
             return _context.Instituicoes.ToList();
         }
+
+        public Instituicao Read(long id)
+        {
+            return _context.Instituicoes.Where(i => i.InstituicaoID == id).First();
+        }
+
+        public Instituicao Edit(Instituicao instituicao)
+        {
+           Instituicao inst =  _context.Instituicoes.FirstOrDefault(i => i.InstituicaoID == instituicao.InstituicaoID);
+
+            if(inst == null)
+            {
+                throw new System.Exception("Falha ao Alterar instituição!");
+            }
+            else
+            {
+                inst.Nome = instituicao.Nome;
+                inst.Endereco = instituicao.Endereco;
+            }
+
+            _context.Instituicoes.Update(inst);
+            _context.SaveChanges();
+
+            return inst;
+        }
+
+        public Instituicao Delete(long id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

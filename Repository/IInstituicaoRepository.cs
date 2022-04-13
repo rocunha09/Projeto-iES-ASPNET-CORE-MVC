@@ -10,5 +10,9 @@ namespace Projeto_IES_ASPNET_CORE_MVC.Repository
     {
         Instituicao Create(Instituicao instituicao);
         List<Instituicao> GetAll();
+
+        Instituicao Read(long id);
+        Instituicao Edit(Instituicao instituicao);
+        Instituicao Delete(long id);
     }
 }
